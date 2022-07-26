@@ -18,4 +18,33 @@ export function getAllCars(req, res){
 //send array to response                        line 8
 
 
-//handles errors                                line 10
+//handle errors                                line 10
+
+
+
+export function createCar(req, res) {
+    const newCar = req.body;
+    const db = dbConnect();
+    db.collection('cars').add(newCar)
+    .then(doc => {
+        res.send(201).send({
+            sucess: true,
+            id: doc.id
+        })
+    })
+    .catch(err => handleError(err, res));
+}
+
+
+//get new car from request body                         line 28
+//connect to database                                   line 29
+//add that car to cars collection                       line 30
+//send back new doc id                                  line 
+
+
+//function to handle errors
+
+function handleError(err, res){
+    console.log(err);
+    res.status(500).send(err);
+}
